@@ -9,7 +9,7 @@ This is a technical task for the position of Junior Backend Engineer in HexOcean
 ![image](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 
 ## Setup
-* ```git clone https://github.com/OlexiyVasylenkoDev/MyAwesomeTestTask.git```
+* ```git clone https://github.com/OlexiyVasylenkoDev/HexOceanTask.git```
 
 To start the programme with docker-compose, you need docker and docker-compose to be installed on your local machine. Instructions are [here](https://docs.docker.com/compose/install/)!
 
