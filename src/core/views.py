@@ -49,7 +49,7 @@ def create_resized_image(request, url: str, size: int):
 
 
 def create_binary_image(request, url: str, seconds: int):
-    allowed_seconds = range(30, 30000)
+    allowed_seconds = range(300, 30000)
     if seconds not in allowed_seconds:
         return HttpResponseNotAllowed("Sorry!")
     binary_name = uuid4()

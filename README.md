@@ -1,5 +1,6 @@
 # HEXOCEAN TEST TASK
 This is a technical task for the position of Junior Backend Engineer in HexOcean sp. z.o.o.
+
 ## Technologies used:
 ![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=white)
 ![image](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
@@ -12,11 +13,13 @@ This is a technical task for the position of Junior Backend Engineer in HexOcean
 * ```git clone https://github.com/OlexiyVasylenkoDev/HexOceanTask.git```
 * ```cd HexOceanTask```
 
-To start the programme with docker-compose, you need docker and docker-compose to be installed on your local machine. Instructions are [here](https://docs.docker.com/compose/install/)!
+To start the programme with docker-compose, you need docker and docker-compose to be installed on your local machine. 
+Follow the instructions [here](https://docs.docker.com/compose/install/)! to install docker and docker-compose on your local machine.
 
 * ```docker-compose up --build```.
 
-If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding: 
+If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding just like here: 
+
 ![image](src/static/screenshot.png)
 
 * And that`s it! Now you can just type localhost in your browser and the project will be running!
@@ -33,7 +36,9 @@ You can use it to login.
 ### via CURL
 
 * List images: ```curl -X GET http://localhost/list_images/ -u "admin:admin"```
-* Upload image: ``` curl -X POST -F "file=@C:\Images\photo.jpg" http://localhost/upload_images/ -u "admin:admin"```
+* Upload image: ``` curl -X POST -F "file=@C:\Images\photo.jpg" http://localhost/upload_images/ -u "admin:admin"``` 
+
+```C:\Images\photo.jpg``` here is an example of how path to file should be built.
 
 ### via Postman
 
@@ -42,7 +47,21 @@ You can use it to login.
 * Go to body, choose form-data among other options.
 * In KEY column select File from dropdown, and in VALUE column click on Select Files and select, which image you would like to upload. Please remember that only '.jpg' and '.png' formats are allowed. And you can upload only one image at a time.
 
+## Tests
+
+## Validation
+There are few simple validators for image model. 
+They check if the image is of correct format and size (added the second one due to performance considerations). 
+Validation is also performed directly in views, checking if users pass valid parameters.
+
+## Performance
+To increase performance, I have implemented a few features. 
+One of them is adding celery which boost performance by offloading the image processing tasks to asynchronous workers. 
+It is used to perform actions such as resizing or converting images to binary format.
+I have also added signals for deleting images from nginx, which will free up space.  
+
 ## Remarks
-* If you get ```There is no such settings file settings``` while running tests from PyCharm, go to Modify Run Configuration in run panel, where tests are running, select Custom Settings and type path to settings within your local machine. It should be ending like this: ```MyAwesomeTestTask\src\config\settings.py```
-* It is a bad practise to push .env file to the repository. 
-* 
+* If you get ```There is no such settings file settings``` while running tests from PyCharm, go to Modify Run Configuration in the panel, where tests are running, select Custom Settings and type path to settings within your local machine. It should look like this: ```HexOceanTask\src\config\settings.py```.
+* It is generally considered a bad practice to push the .env file to a repository due to security reasons. But as it is easier to test and as there is no sensitive information in my .env file, I`ve decided to push it. 
+* I`ve commented out the admin pages in docker-compose file to make docker-compose starting faster. You could uncomment them and try them out as well if you wish.
+
