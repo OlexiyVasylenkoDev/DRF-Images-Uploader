@@ -15,8 +15,10 @@ To start the programme with docker-compose, you need docker and docker-compose t
 
 * ```docker-compose up --build```.
 
-And that`s it! Now you can just type localhost in your browser and the project will be running!
-
+If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding for suitable: 
+![image](src/static/screenshot.png)
+* And that`s it! Now you can just type localhost in your browser and the project will be running!
+![image](src/static/screenshot.png)
 ## How to access API?
 
 For testing purposes, I have already created superuser with the most unexpected credentials: 
