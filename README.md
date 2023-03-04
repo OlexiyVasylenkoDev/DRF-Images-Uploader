@@ -10,15 +10,17 @@ This is a technical task for the position of Junior Backend Engineer in HexOcean
 
 ## Setup
 * ```git clone https://github.com/OlexiyVasylenkoDev/HexOceanTask.git```
+* ```cd HexOceanTask```
 
 To start the programme with docker-compose, you need docker and docker-compose to be installed on your local machine. Instructions are [here](https://docs.docker.com/compose/install/)!
 
 * ```docker-compose up --build```.
 
-If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding for suitable: 
+If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding: 
 ![image](src/static/screenshot.png)
+
 * And that`s it! Now you can just type localhost in your browser and the project will be running!
-![image](src/static/screenshot.png)
+
 ## How to access API?
 
 For testing purposes, I have already created superuser with the most unexpected credentials: 
