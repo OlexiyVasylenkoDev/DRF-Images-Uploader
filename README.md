@@ -39,6 +39,6 @@ You can use it to login.
 * In KEY column select File from dropdown, and in VALUE column click on Select Files and select, which image you would like to upload. Please remember that only '.jpg' and '.png' formats are allowed. And you can upload only one image at a time.
 
 ## Remarks
-* If you get ```There is no such settings file settings``` while running tests from PyCharm, go to Modify Run Configuration in run panel, where tests are running, select Custom Settings and type path to settings within your local machine. It should be ending like this: ```HexOceanTask\src\config\settings.py```
+* If you get ```There is no such settings file settings``` while running tests from PyCharm, go to Modify Run Configuration in run panel, where tests are running, select Custom Settings and type path to settings within your local machine. It should be ending like this: ```MyAwesomeTestTask\src\config\settings.py```
 * It is a bad practise to push .env file to the repository. 
 * 
