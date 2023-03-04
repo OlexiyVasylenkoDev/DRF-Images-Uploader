@@ -1,0 +1,116 @@
+services:
+  backend:
+    build: ./
+    container_name: HexOceanTask
+    working_dir: /HexOceanTask
+    ports:
+      - ${LOCAL_PORT}:${WSGI_PORT}
+    volumes:
+      - static_content:/HexOceanTask/src/static/
+      - media_content:/HexOceanTask/src/media/
+      - ./src:/HexOceanTask/src
+      - ./commands:/HexOceanTask/commands
+    restart: always
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:12.0
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    restart: on-failure
+    env_file:
+      - .env
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    container_name: postgres_admin
+#    ports:
+#      - "5000:80"
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
+#    restart: on-failure
+#    env_file:
+#      - .env
+#    depends_on:
+#      - postgres
+
+  nginx:
+    image: nginx:1.19
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - static_content:/HexOceanTask/src/static/
+      - media_content:/HexOceanTask/src/media/
+      - ./nginx:/etc/nginx/conf.d
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+  celery:
+    build: ./
+    container_name: celery
+    command:
+      - ./commands/start_celery.sh
+    volumes:
+      - ./src:/HexOceanTask
+      - ./commands:/HexOceanTask/commands
+      - static_content:/HexOceanTask/static/
+      - media_content:/HexOceanTask/media/
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+#  flower:
+#    build: ./
+#    container_name: flower
+#    command:
+#      - ./commands/start_flower.sh
+#    ports:
+#      - "5555:5555"
+#    volumes:
+#      - ./src:/HexOceanTask
+#      - ./commands:/HexOceanTask/commands
+#    restart: always
+#    env_file:
+#      - .env
+#    depends_on:
+#      - celery
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: on-failure
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+#  redisadmin:
+#    image: rediscommander/redis-commander:latest
+#    container_name: redisadmin
+#    hostname: redisadmin
+#    ports:
+#      - "8092:8081"
+#    restart: always
+#    env_file:
+#      - .env
+#    depends_on:
+#      - redis
+
+volumes:
+  local_postgres_data: { }
+  local_postgres_data_backups: { }
+  pgadmin_data: { }
+  static_content: { }
+  media_content: { }

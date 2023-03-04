@@ -1,0 +1,6 @@
+.idea/
+venv/
+src/static/admin/
+src/static/rest_framework/
+Backend (Django) Developer - Images.txt
+.flake8
