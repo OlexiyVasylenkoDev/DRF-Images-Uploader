@@ -43,9 +43,8 @@ def create_resized_image(request, url: str, size: int):
         resize_image.delay(url, size)
     elif size not in allowed_sizes:
         return HttpResponseNotAllowed("Sorry!")
-    return HttpResponseRedirect(
-        f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{url[:len(url) - 4]}_{size}.png"
-    )
+    image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{url[:len(url) - 4]}_{size}.png"
+    return HttpResponseRedirect(image_url)
 
 
 def create_binary_image(request, url: str, seconds: int):
@@ -57,11 +56,11 @@ def create_binary_image(request, url: str, seconds: int):
     request.session["expiration_time"] = time.time() + seconds
     delete_image.apply_async(args=[binary_name], countdown=seconds)
     image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{str(binary_name)}.png"
-    return redirect(image_url)
+    return HttpResponseRedirect(image_url)
 
 
 def serve_binary_image(request, binary_name):
     image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{binary_name}.png"
     if time.time() > request.session["expiration_time"]:
         raise Http404("Image not found")
-    return redirect(image_url)
+    return HttpResponseRedirect(image_url)

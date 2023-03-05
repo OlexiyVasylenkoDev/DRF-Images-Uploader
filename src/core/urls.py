@@ -13,7 +13,7 @@ router.register("upload_images", UploadImages, basename="upload")
 urlpatterns = (
     [
         path("", include(router.urls)),
-        path('binary/<str:binary_name>.png', serve_binary_image),
+        path("binary/<str:binary_name>.png", serve_binary_image, name="expiring_image"),
         path("binary/<str:url>/<int:seconds>/", create_binary_image, name="binarize"),
         path("<str:url>/<int:size>/", create_resized_image, name="resize"),
     ]

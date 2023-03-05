@@ -48,6 +48,7 @@ You can use it to login.
 * In KEY column select File from dropdown, and in VALUE column click on Select Files and select, which image you would like to upload. Please remember that only '.jpg' and '.png' formats are allowed. And you can upload only one image at a time.
 
 ## Tests
+There are not pretty much tests here. However, 
 
 ## Validation
 There are few simple validators for image model. 
