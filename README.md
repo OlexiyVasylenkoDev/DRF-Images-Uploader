@@ -14,17 +14,18 @@ This is a technical task for the position of Junior Backend Engineer in HexOcean
 * ```cd HexOceanTask```
 
 To start the programme with docker-compose, you need docker and docker-compose to be installed on your local machine. 
-Follow the instructions [here](https://docs.docker.com/compose/install/)! to install docker and docker-compose on your local machine.
+Follow the instructions [here](https://docs.docker.com/compose/install/) to install them on your local machine.
 
 * ```docker-compose up --build```.
 
-If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please change Line Separator and File Encoding just like here: 
+If you are having ```exec ./commands/start_celery.sh: no such file or directory```, please go to your code editor and change Line Separator and File Encoding just like here: 
 
 ![image](src/static/screenshot.png)
 
-* And that`s it! Now you can just type localhost in your browser and the project will be running!
+* And that`s it! The project is running!
 
 ## How to access API?
+Go to your browser and type ```localhost``` in the url.
 
 For testing purposes, I have already created superuser with the most unexpected credentials: 
 ```
@@ -46,20 +47,6 @@ You can use it to login.
 * Go to authorization and write down 'admin' in both username and password.
 * Go to body, choose form-data among other options.
 * In KEY column select File from dropdown, and in VALUE column click on Select Files and select, which image you would like to upload. Please remember that only '.jpg' and '.png' formats are allowed. And you can upload only one image at a time.
-
-## Tests
-There are not pretty much tests here. However, 
-
-## Validation
-There are few simple validators for image model. 
-They check if the image is of correct format and size (added the second one due to performance considerations). 
-Validation is also performed directly in views, checking if users pass valid parameters.
-
-## Performance
-To increase performance, I have implemented a few features. 
-One of them is adding celery which boost performance by offloading the image processing tasks to asynchronous workers. 
-It is used to perform actions such as resizing or converting images to binary format.
-I have also added signals for deleting images from nginx, which will free up space.  
 
 ## Remarks
 * If you get ```There is no such settings file settings``` while running tests from PyCharm, go to Modify Run Configuration in the panel, where tests are running, select Custom Settings and type path to settings within your local machine. It should look like this: ```HexOceanTask\src\config\settings.py```.
