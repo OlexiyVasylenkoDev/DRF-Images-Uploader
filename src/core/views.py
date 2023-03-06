@@ -40,10 +40,11 @@ class ListImages(ModelViewSet):
 def create_resized_image(request, url: str, size: int):
     allowed_sizes = [i.size for i in request.user.account_tier.thumbnail_size.all()]
     if not os.path.exists(MEDIA_ROOT + f"/{url[:len(url) - 4]}_{size}.png") and size in allowed_sizes:
-        resize_image.delay(url, size)
+        image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{resize_image(url, size)}"
     elif size not in allowed_sizes:
         return HttpResponseNotAllowed("Sorry!")
-    image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{url[:len(url) - 4]}_{size}.png"
+    else:
+        image_url = f"http://{ALLOWED_HOSTS[0]}:{NGINX_PORT}{MEDIA_URL}{url[:len(url) - 4]}_{size}.png"
     return HttpResponseRedirect(image_url)
 
 
