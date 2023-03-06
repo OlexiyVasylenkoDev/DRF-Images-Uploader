@@ -21,7 +21,7 @@ class ImageSerializer(ModelSerializer):
         if obj.user.account_tier.original_link:
             result["Original_link"] = f"http://localhost:{NGINX_PORT}{MEDIA_URL}{obj.file}"
         if obj.user.account_tier.expiring_link:
-            result["Expiring_link"] = f"http://localhost:{NGINX_PORT}/binary/{obj.file}/30"
+            result["Expiring_link"] = f"http://localhost:{NGINX_PORT}/binary/{obj.file}/300"
         return result
 
     class Meta:
