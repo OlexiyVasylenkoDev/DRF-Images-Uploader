@@ -25,7 +25,7 @@ If you are having ```exec ./commands/start_celery.sh: no such file or directory`
 * And that`s it! The project is running!
 
 ## How to access API?
-Go to your browser and type ```localhost``` in the url.
+Go to your browser and type ```localhost/images``` in the url.
 
 For testing purposes, I have already created superuser with the most unexpected credentials: 
 ```
